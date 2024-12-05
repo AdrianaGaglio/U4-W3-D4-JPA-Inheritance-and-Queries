@@ -40,4 +40,6 @@ public class SoccerMatchDAO {
     public List<SoccerMatch> findAwayWin(String awayTeam) {
         return this.em.createNamedQuery("findAwayWin", SoccerMatch.class).setParameter("awayTeam", awayTeam).getResultList();
     }
+
+
 }

@@ -3,10 +3,7 @@ package epicode.it.entity.athletics_competition;
 import epicode.it.entity.event.Event;
 import epicode.it.entity.person.Person;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import java.util.HashSet;
@@ -19,7 +16,14 @@ import java.util.TreeSet;
 @NoArgsConstructor
 @AllArgsConstructor
 @NamedQuery(name = "findAll_AthleticsCompetition", query = "SELECT a FROM AthleticsCompetition a")
-@NamedQuery(name = "findByWinner_AthleticsCompetition", query = "SELECT a FROM AthleticsCompetition a WHERE a.winner = :winner")
+@NamedQuery(
+        name = "findByAthlet",
+        query = "SELECT a FROM AthleticsCompetition a WHERE :athlete MEMBER OF a.athletes"
+)
+@NamedQuery(
+        name = "groupByWinner",
+        query = "SELECT a FROM AthleticsCompetition a WHERE a.winner = :winner"
+)
 @Table(name="athletics_competitions")
 
 public class AthleticsCompetition extends Event {
@@ -30,6 +34,7 @@ public class AthleticsCompetition extends Event {
 
     @ManyToOne
     @JoinColumn(name = "winner_id")
+    @ToString.Exclude
     private Person winner;
 
 }

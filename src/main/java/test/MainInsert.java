@@ -68,9 +68,15 @@ public class MainInsert {
             SoccerMatch soccerMatch = new SoccerMatch();
             soccerMatch.setHomeTeam(faker.team().name());
             soccerMatch.setAwayTeam(faker.team().name());
-            soccerMatch.setWinner(faker.random().nextInt(1, 2) == 1 ? soccerMatch.getHomeTeam() : soccerMatch.getAwayTeam());
             soccerMatch.setScoreHomeTeam(faker.random().nextInt(0, 10));
             soccerMatch.setScoreAwayTeam(faker.random().nextInt(0, 10));
+            if(soccerMatch.getScoreHomeTeam() > soccerMatch.getScoreAwayTeam()) {
+                soccerMatch.setWinner(soccerMatch.getHomeTeam());
+            } else if(soccerMatch.getScoreHomeTeam() < soccerMatch.getScoreAwayTeam()) {
+                soccerMatch.setWinner(soccerMatch.getAwayTeam());
+            } else {
+                soccerMatch.setWinner(null);
+            }
             soccerMatch.setTitle(faker.lorem().fixedString(5));
             soccerMatch.setDescription(faker.lorem().sentence(10));
             soccerMatch.setEventDate(faker.date().future(20, TimeUnit.DAYS));

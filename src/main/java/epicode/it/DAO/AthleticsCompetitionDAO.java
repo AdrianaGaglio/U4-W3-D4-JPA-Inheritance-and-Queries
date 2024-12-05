@@ -38,8 +38,14 @@ public class AthleticsCompetitionDAO {
         em.getTransaction().commit();
     }
 
-    public AthleticsCompetition findByWinner(Person person) {
-        return em.createNamedQuery("findByWinner_AthleticsCompetition", AthleticsCompetition.class)
-                .setParameter("winner", person).getSingleResult();
+    public List<AthleticsCompetition> getByWinner(Person winner) {
+        return this.em.createNamedQuery("groupByWinner", AthleticsCompetition.class)
+                .setParameter("winner", winner).getResultList();
     }
+
+    public List<AthleticsCompetition> getByAthlete(Person athlete) {
+        return this.em.createNamedQuery("findByAthlet", AthleticsCompetition.class)
+                .setParameter("athlete", athlete).getResultList();
+    }
+
 }

@@ -4,6 +4,7 @@ import epicode.it.entity.event.Event;
 import epicode.it.entity.person.Person;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.collection.spi.PersistentSortedMap;
 
 @Data
@@ -16,6 +17,7 @@ public class Partecipation {
     private Long id;
 
     @ManyToOne
+    @ToString.Exclude
     private Person person;
 
     @ManyToOne

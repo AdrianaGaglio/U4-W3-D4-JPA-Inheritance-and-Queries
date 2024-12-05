@@ -5,6 +5,7 @@ import epicode.it.entity.partecipation.Partecipation;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -32,10 +33,12 @@ public class Person {
     private Sex sex;
 
     @OneToMany(mappedBy = "person")
+    @ToString.Exclude
     private List<Partecipation> partecipations = new ArrayList<>();
 
     @ManyToMany
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     private List<AthleticsCompetition> competitions = new ArrayList<>();
 
 }
