@@ -3,6 +3,8 @@ package test;
 import com.github.javafaker.Faker;
 import epicode.it.DAO.*;
 import epicode.it.entity.athletics_competition.AthleticsCompetition;
+import epicode.it.entity.concert.Concert;
+import epicode.it.entity.concert.Genre;
 import epicode.it.entity.event.Event;
 import epicode.it.entity.event.EventType;
 import epicode.it.entity.location.Location;
@@ -66,7 +68,7 @@ public class MainInsert {
             SoccerMatch soccerMatch = new SoccerMatch();
             soccerMatch.setHomeTeam(faker.team().name());
             soccerMatch.setAwayTeam(faker.team().name());
-            soccerMatch.setWinner(faker.team().name());
+            soccerMatch.setWinner(faker.random().nextInt(1, 2) == 1 ? soccerMatch.getHomeTeam() : soccerMatch.getAwayTeam());
             soccerMatch.setScoreHomeTeam(faker.random().nextInt(0, 10));
             soccerMatch.setScoreAwayTeam(faker.random().nextInt(0, 10));
             soccerMatch.setTitle(faker.lorem().fixedString(5));
@@ -81,7 +83,7 @@ public class MainInsert {
             athleticsCompetition.setTitle(faker.lorem().fixedString(5));
             athleticsCompetition.setDescription(faker.lorem().sentence(10));
             athleticsCompetition.setEventDate(faker.date().future(20, TimeUnit.DAYS));
-            athleticsCompetition.setEventType(EventType.PUBLIC);
+            athleticsCompetition.setEventType(faker.random().nextInt(1,2) == 1 ? EventType.PRIVATE : EventType.PUBLIC);
             athleticsCompetition.setMaxPartecipants(faker.random().nextInt(100, 1000));
             athleticsCompetition.setLocation(locationDAO.findById(faker.random().nextInt(1, 20).longValue()));
             for (int j = 0; j < 10; j++) {
@@ -94,7 +96,16 @@ public class MainInsert {
             athleticsCompetition.setWinner(athletes.get(faker.random().nextInt(0, athletes.size() - 1)));
             athleticsCompetitionDAO.save(athleticsCompetition);
 
-
+            Concert concert = new Concert();
+            concert.setTitle(faker.lorem().fixedString(5));
+            concert.setDescription(faker.lorem().sentence(10));
+            concert.setEventDate(faker.date().future(20, TimeUnit.DAYS));
+            concert.setEventType(EventType.PUBLIC);
+            concert.setGenre(Genre.values()[faker.random().nextInt(0, Genre.values().length - 1)]);
+            concert.setInStreaming(faker.bool().bool());
+            concert.setMaxPartecipants(faker.random().nextInt(500, 1000));
+            concert.setLocation(locationDAO.findById(faker.random().nextInt(1, 20).longValue()));
+            concertDAO.save(concert);
         }
 
         for (int i = 0; i < 50; i++) {

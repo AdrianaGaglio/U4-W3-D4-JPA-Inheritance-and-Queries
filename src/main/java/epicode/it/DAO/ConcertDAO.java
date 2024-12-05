@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class ConcertDAO {
     private EntityManager em;
@@ -29,5 +31,10 @@ public class ConcertDAO {
         em.getTransaction().begin();
         em.remove(concert);
         em.getTransaction().commit();
+    }
+
+    public List<Concert> findInStreaming(boolean inStreaming) {
+        return this.em.createNamedQuery("findInStreaming", Concert.class)
+                .setParameter("inStreaming", inStreaming).getResultList();
     }
 }

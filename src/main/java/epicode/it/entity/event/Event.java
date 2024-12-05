@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @NamedQuery(name = "findAll_Event", query = "SELECT a FROM Event a")
+
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="events")
 public class Event {

@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class SoccerMatchDAO {
     private EntityManager em;
@@ -29,5 +31,13 @@ public class SoccerMatchDAO {
         em.getTransaction().begin();
         em.remove(match);
         em.getTransaction().commit();
+    }
+
+    public List<SoccerMatch> findHomeWin(String homeTeam) {
+        return this.em.createNamedQuery("findHomeWin", SoccerMatch.class).setParameter("homeTeam", homeTeam).getResultList();
+    }
+
+    public List<SoccerMatch> findAwayWin(String awayTeam) {
+        return this.em.createNamedQuery("findAwayWin", SoccerMatch.class).setParameter("awayTeam", awayTeam).getResultList();
     }
 }

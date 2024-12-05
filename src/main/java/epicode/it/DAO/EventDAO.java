@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class EventDAO {
     private EntityManager em;
@@ -30,4 +32,6 @@ public class EventDAO {
         em.remove(event);
         em.getTransaction().commit();
     }
+
+
 }
