@@ -28,7 +28,7 @@ public class AthleticsCompetition extends Event {
     @EqualsAndHashCode.Exclude
     private Set<Person> athletes = new LinkedHashSet<>();
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "winner_id")
     private Person winner;
 

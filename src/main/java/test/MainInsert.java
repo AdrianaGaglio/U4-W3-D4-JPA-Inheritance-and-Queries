@@ -90,14 +90,7 @@ public class MainInsert {
                 athleticsCompetition.getAthletes().add(person);
             }
             List<Person> athletes = athleticsCompetition.getAthletes().stream().toList();
-            while (true) {
-                Person person = athletes.get(faker.random().nextInt(0, athletes.size() - 1));
-                AthleticsCompetition found = athleticsCompetitionDAO.findByWinner(person);
-                if(found == null) {
-                    athleticsCompetition.setWinner(person);
-                    break;
-                }
-            }
+            Person person = athletes.get(faker.random().nextInt(0, athletes.size() - 1));
             athleticsCompetition.setWinner(athletes.get(faker.random().nextInt(0, athletes.size() - 1)));
             athleticsCompetitionDAO.save(athleticsCompetition);
         }
